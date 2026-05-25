@@ -21,6 +21,7 @@ PROJECT_TEMPLATE = [
     "src/graph/__init__.py",
     "src/graph/state.py",
     "src/graph/builder.py",
+    "src/graph/state_mapper.py"
 
     # Config
     "src/config/__init__.py",
