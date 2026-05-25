@@ -4,4 +4,6 @@ langchain-openai==0.3.7
 langchain-core==0.3.40
 python-dotenv==1.0.1
 openai==1.65.4
+python-dotenv
+pymongo
 -e .
