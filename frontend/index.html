@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Triage AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="chat-card">
+      <header class="chat-header">
+        <div>
+          <h1>Support Triage AI</h1>
+          <p>Describe your issue. Our AI will triage it instantly.</p>
+        </div>
+        <span class="status-pill">Online</span>
+      </header>
+
+      <section id="chatWindow" class="chat-window">
+        <div class="message bot">
+          <p>Hi 👋 Tell me what happened, and I’ll create a support ticket for you.</p>
+        </div>
+      </section>
+
+      <form id="ticketForm" class="chat-form">
+        <textarea
+          id="ticketText"
+          placeholder="Type your complaint here..."
+          required
+        ></textarea>
+
+        <button type="submit" id="submitBtn">
+          Submit Ticket
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
