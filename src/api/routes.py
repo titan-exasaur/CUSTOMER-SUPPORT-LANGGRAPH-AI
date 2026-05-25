@@ -7,10 +7,12 @@ from src.api.schemas import (
 )
 from src.services.ticket_service import TicketService
 from src.services.agent_service import AgentService
+from src.services.queue_service import QueueService
 
 
 router = APIRouter()
 
+queue_service = QueueService()
 ticket_service = TicketService()
 agent_service = AgentService()
 
@@ -24,7 +26,8 @@ def create_ticket(request: TicketCreateRequest):
 
     # Current local mode: process immediately.
     # Later AWS v2 mode: push ticket_id to SQS instead.
-    agent_service.process_ticket(ticket_id)
+    # agent_service.process_ticket(ticket_id)
+    queue_service.send_ticket_for_processing(ticket_id)
 
     return TicketCreateResponse(
         ticket_id=ticket_id,
