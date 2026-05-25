@@ -21,5 +21,10 @@ class Settings:
     APP_NAME: str = "Customer Support Triage AI"
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "local")
 
-
+    # AWS
+    AWS_REGION: str = os.getenv("AWS_REGION", "ap-south-1")
+    SQS_QUEUE_URL: str = os.getenv("SQS_QUEUE_URL", "")
+    AWS_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
+    AWS_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY", "")
+    
 settings = Settings()

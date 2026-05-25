@@ -4,7 +4,7 @@ from typing import Optional
 from src.config.settings import settings
 from src.database.models import Ticket
 from src.database.repository import TicketRepository
-
+from src.utils.status import TicketStatus
 
 class TicketService:
     """
@@ -25,7 +25,8 @@ class TicketService:
             ticket_id=ticket_id,
             user_id=user_id,
             ticket_text=ticket_text,
-            model_name=settings.MODEL_NAME
+            model_name=settings.MODEL_NAME,
+            status=TicketStatus.OPEN
         )
 
         self.repository.create_ticket(ticket)

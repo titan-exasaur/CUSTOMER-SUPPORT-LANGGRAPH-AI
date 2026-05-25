@@ -11,6 +11,7 @@ class TicketCreateResponse(BaseModel):
     ticket_id: str
     status: str
     message: str
+    status_url: str
 
 
 class TicketStatusResponse(BaseModel):

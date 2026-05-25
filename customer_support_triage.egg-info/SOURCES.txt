@@ -12,6 +12,7 @@ src/agents/classifier.py
 src/agents/escalation.py
 src/agents/responder.py
 src/api/__init__.py
+src/api/app.py
 src/api/dependencies.py
 src/api/routes.py
 src/api/schemas.py
@@ -27,6 +28,7 @@ src/deployment/worker_lambda.py
 src/graph/__init__.py
 src/graph/builder.py
 src/graph/state.py
+src/graph/state_mapper.py
 src/prompts/__init__.py
 src/prompts/classifier_prompt.py
 src/prompts/escalation_prompt.py
@@ -43,11 +45,16 @@ src/utils/__init__.py
 src/utils/helpers.py
 src/utils/logger.py
 src/utils/retry.py
+src/utils/status.py
 src/utils/ticket.py
 src/workers/__init__.py
 src/workers/sqs_worker.py
 tests/__init__.py
+tests/test_agent_service.py
 tests/test_agents.py
 tests/test_api.py
 tests/test_graph.py
+tests/test_mongo.py
+tests/test_ticket_service.py
 tests/test_tools.py
+tests/test_worker.py

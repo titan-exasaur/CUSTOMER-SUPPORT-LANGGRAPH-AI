@@ -13,7 +13,7 @@ from src.api.dependencies import (
 from src.services.ticket_service import TicketService
 from src.services.queue_service import QueueService
 from src.services.agent_service import AgentService
-
+from src.utils.status import TicketStatus
 
 router = APIRouter()
 
@@ -31,10 +31,16 @@ def create_ticket(
 
     queue_service.send_ticket_for_processing(ticket_id)
 
+    ticket_service.update_ticket_state(
+        ticket_id=ticket_id,
+        status=TicketStatus.QUEUED,
+    )
+
     return TicketCreateResponse(
         ticket_id=ticket_id,
         status="queued",
         message="Ticket created and queued for processing.",
+        status_url=f"/tickets/{ticket_id}"
     )
 
 

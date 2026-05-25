@@ -4,7 +4,7 @@ from src.graph.state_mapper import (
     agent_state_to_mongo_update,
 )
 from src.services.ticket_service import TicketService
-
+from src.utils.status import TicketStatus
 
 class AgentService:
     """
@@ -21,25 +21,38 @@ class AgentService:
         if not ticket:
             raise ValueError(f"Ticket not found: {ticket_id}")
 
-        if ticket.get("status") == "resolved":
+        if ticket.get("status") in [TicketStatus.RESOLVED, TicketStatus.ESCALATED]:
             return ticket
 
-        state = ticket_to_agent_state(ticket)
-
-        final_state = self.graph.invoke(state)
-
-        mongo_update = agent_state_to_mongo_update(final_state)
-
-        self.ticket_service.update_ticket_state(
-            ticket_id=ticket_id,
-            **mongo_update,
-        )
-
-        if final_state.get("draft_response"):
-            self.ticket_service.append_message(
+        try:
+            self.ticket_service.update_ticket_state(
                 ticket_id=ticket_id,
-                role="assistant",
-                message=final_state["draft_response"],
+                status=TicketStatus.PROCESSING,
             )
 
-        return self.ticket_service.get_ticket(ticket_id)
+            state = ticket_to_agent_state(ticket)
+
+            final_state = self.graph.invoke(state)
+
+            mongo_update = agent_state_to_mongo_update(final_state)
+
+            self.ticket_service.update_ticket_state(
+                ticket_id=ticket_id,
+                **mongo_update,
+            )
+
+            if final_state.get("draft_response"):
+                self.ticket_service.append_message(
+                    ticket_id=ticket_id,
+                    role="assistant",
+                    message=final_state["draft_response"],
+                )
+
+            return self.ticket_service.get_ticket(ticket_id)
+
+        except Exception as e:
+            self.ticket_service.mark_ticket_failed(
+                ticket_id=ticket_id,
+                error_message=str(e),
+            )
+            raise
