@@ -11,4 +11,4 @@ uvicorn
 boto3
 black
 mangum
--e .
+tiktoken>=0.7.0
